@@ -73,8 +73,9 @@ public class WidgetUpdateTask extends AsyncTask<RaspberryDeviceBean, Void, Map<S
     private boolean showLoad;
     private boolean useFahrenheit;
     private int appWidgetId;
+    private final boolean ignoreVCGenCMD;
 
-    WidgetUpdateTask(Context context, RemoteViews widgetView, boolean showArm, boolean showTemp, boolean showMemory, boolean showLoad, boolean useFahrenheit, int appWidgetId) {
+    WidgetUpdateTask(Context context, RemoteViews widgetView, boolean showArm, boolean showTemp, boolean showMemory, boolean showLoad, boolean useFahrenheit, int appWidgetId, boolean ignoreVCGenCmd) {
         this.context = context;
         this.widgetView = widgetView;
         this.showArm = showArm;
@@ -83,6 +84,7 @@ public class WidgetUpdateTask extends AsyncTask<RaspberryDeviceBean, Void, Map<S
         this.showLoad = showLoad;
         this.useFahrenheit = useFahrenheit;
         this.appWidgetId = appWidgetId;
+        this.ignoreVCGenCMD = ignoreVCGenCmd;
     }
 
     private void connect(IQueryService raspiQuery, RaspberryDeviceBean deviceBean) throws RaspiQueryException {
@@ -105,7 +107,7 @@ public class WidgetUpdateTask extends AsyncTask<RaspberryDeviceBean, Void, Map<S
         try {
             connect(query, deviceBean);
             result.put(STATUS, STATUS_ONLINE);
-            if (showArm || showTemp) {
+            if (!ignoreVCGenCMD && (showArm || showTemp)) {
                 final VcgencmdBean vcgencmdBean = query.queryVcgencmd();
                 if (vcgencmdBean != null) {
                     result.put(KEY_TEMP, vcgencmdBean.getCpuTemperature() + "");

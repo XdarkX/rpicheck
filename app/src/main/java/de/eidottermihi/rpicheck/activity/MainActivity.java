@@ -90,6 +90,7 @@ import de.eidottermihi.rpicheck.ssh.beans.DiskUsageBean;
 import de.eidottermihi.rpicheck.ssh.beans.Exported;
 import de.eidottermihi.rpicheck.ssh.beans.NetworkInterfaceInformation;
 import de.eidottermihi.rpicheck.ssh.beans.ProcessBean;
+import de.eidottermihi.rpicheck.ssh.beans.VcgencmdBean;
 import de.eidottermihi.rpicheck.ssh.beans.WlanBean;
 import de.eidottermihi.rpicheck.ssh.impl.RaspiQueryException;
 import io.freefair.android.injection.annotation.InjectView;
@@ -124,6 +125,8 @@ public class MainActivity extends InjectionAppCompatActivity implements
     private TextView coreVoltText;
     @InjectView(R.id.coreTempText)
     private TextView coreTempText;
+    @InjectView(R.id.overclockGroup)
+    private View overclockGroup;
     @InjectView(R.id.firmwareText)
     private TextView firmwareText;
     @InjectView(R.id.lastUpdateText)
@@ -261,12 +264,18 @@ public class MainActivity extends InjectionAppCompatActivity implements
 
     private void updateQueryDataInView(QueryBean result) {
         final String tempScale = sharedPrefs.getString(SettingsActivity.KEY_PREF_TEMPERATURE_SCALE, getString(R.string.pref_temperature_scala_default));
-        coreTempText.setText(FormatHelper.formatTemperature(currentDevice.getLastQueryData().getVcgencmdInfo().getCpuTemperature(), tempScale));
-        final String freqScale = sharedPrefs.getString(SettingsActivity.KEY_PREF_FREQUENCY_UNIT, getString(R.string.pref_frequency_unit_default));
-        armFreqText.setText(FormatHelper.formatFrequency(currentDevice.getLastQueryData().getVcgencmdInfo().getArmFrequency(), freqScale));
-        coreFreqText.setText(FormatHelper.formatFrequency(currentDevice.getLastQueryData().getVcgencmdInfo().getCoreFrequency(), freqScale));
-        coreVoltText.setText(FormatHelper.formatDecimal(currentDevice.getLastQueryData().getVcgencmdInfo().getCoreVolts()));
-        firmwareText.setText(result.getVcgencmdInfo().getVersion());
+        final VcgencmdBean vcgencmdBean = result.getVcgencmdInfo();
+        if (vcgencmdBean != null) {
+            overclockGroup.setVisibility(View.VISIBLE);
+            coreTempText.setText(FormatHelper.formatTemperature(vcgencmdBean.getCpuTemperature(), tempScale));
+            final String freqScale = sharedPrefs.getString(SettingsActivity.KEY_PREF_FREQUENCY_UNIT, getString(R.string.pref_frequency_unit_default));
+            armFreqText.setText(FormatHelper.formatFrequency(vcgencmdBean.getArmFrequency(), freqScale));
+            coreFreqText.setText(FormatHelper.formatFrequency(vcgencmdBean.getCoreFrequency(), freqScale));
+            coreVoltText.setText(FormatHelper.formatDecimal(vcgencmdBean.getCoreVolts()));
+            firmwareText.setText(vcgencmdBean.getVersion());
+        } else {
+            overclockGroup.setVisibility(View.GONE);
+        }
         lastUpdateText.setText(SimpleDateFormat.getDateTimeInstance().format(result.getLastUpdate()));
         final boolean showSystemtime = sharedPrefs.getBoolean(SettingsActivity.KEY_PREF_QUERY_SHOW_SYSTEM_TIME, false);
         if (showSystemtime) {
@@ -769,7 +778,8 @@ public class MainActivity extends InjectionAppCompatActivity implements
                     showPullToRefreshHint();
                 }
                 // execute query in background
-                new SSHQueryTask(this, getLoadAveragePreference()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, host, user, pass, port, hideRoot.toString(), keyPath, keyPass);
+                final Boolean ignoreMissingVCGenCMD = sharedPrefs.getBoolean(SettingsActivity.KEY_PREF_QUERY_IGNORE_VCGENCMD, false);
+                new SSHQueryTask(this, getLoadAveragePreference()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, host, user, pass, port, hideRoot.toString(), keyPath, keyPass, ignoreMissingVCGenCMD.toString());
             }
         } else {
             // no network available
@@ -1001,10 +1011,11 @@ public class MainActivity extends InjectionAppCompatActivity implements
         if (type.equals(PassphraseDialog.SSH_QUERY)) {
             // connect
             final Boolean hideRoot = sharedPrefs.getBoolean(SettingsActivity.KEY_PREF_QUERY_HIDE_ROOT_PROCESSES, true);
+            final Boolean ignoreMissingVCGenCMD = sharedPrefs.getBoolean(SettingsActivity.KEY_PREF_QUERY_IGNORE_VCGENCMD, false);
             new SSHQueryTask(this, getLoadAveragePreference()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                     currentDevice.getHost(), currentDevice.getUser(), null,
                     currentDevice.getPort() + "", hideRoot.toString(),
-                    currentDevice.getKeyfilePath(), passphrase);
+                    currentDevice.getKeyfilePath(), passphrase, ignoreMissingVCGenCMD.toString());
         } else if (type.equals(PassphraseDialog.SSH_SHUTDOWN)) {
             new SSHShutdownTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, currentDevice.getHost(),
                     currentDevice.getUser(), null,

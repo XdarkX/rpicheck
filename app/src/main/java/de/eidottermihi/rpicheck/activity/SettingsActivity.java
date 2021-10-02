@@ -61,6 +61,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
     public static final String KEY_PREF_FREQUENCY_UNIT = "pref_frequency_unit";
     public static final String KEY_PREF_DEBUG_LOGGING = "pref_debug_log";
     public static final String KEY_PREF_QUERY_SHOW_SYSTEM_TIME = "pref_query_show_system_time";
+    public static final String KEY_PREF_QUERY_IGNORE_VCGENCMD = "pref_query_ignore_vcgencmd";
 
     private static final String KEY_PREF_LOG = "pref_log";
     private static final String KEY_PREF_CHANGELOG = "pref_changelog";

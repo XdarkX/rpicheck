@@ -70,6 +70,13 @@
             android:summaryOff="@string/pref_query_show_system_time_summaryOff"
             android:summaryOn="@string/pref_query_show_system_time_summaryOn"
             android:title="@string/pref_query_show_system_time_title"/>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_query_ignore_vcgencmd"
+            android:summary="@string/pref_query_ignore_vcgencmd_summary"
+            android:summaryOff="@string/pref_query_ignore_vcgencmd_summaryOff"
+            android:summaryOn="@string/pref_query_ignore_vcgencmd_summaryOn"
+            android:title="@string/pref_query_ignore_vcgencmd_title"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_group_log">
         <Preference

@@ -49,138 +49,143 @@
                 android:visibility="gone"
                 />
 
-            <TextView
-                android:id="@+id/headerTextOverclock"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/overclocking_header"
-                android:textAllCaps="true"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:orientation="vertical"
+                android:id="@+id/overclockGroup">
                 <TextView
-                    android:id="@+id/coreTempLabel"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/headerTextOverclock"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/core_temp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    android:gravity="center_horizontal"
+                    android:text="@string/overclocking_header"
+                    android:textAllCaps="true"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/coreTempText"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/coreTempLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/core_temp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+                    <TextView
+                        android:id="@+id/coreTempText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/coreTempLabel"
+                        android:gravity="right"
+                        android:paddingLeft="8dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/armFreqLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/arm_freq"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+                    <TextView
+                        android:id="@+id/armFreqText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/armFreqLabel"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/armFreqLabel"
+                        android:gravity="right"
+                        android:paddingLeft="8dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/coreTempLabel"
-                    android:gravity="right"
-                    android:paddingLeft="8dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-            </RelativeLayout>
+                    android:paddingTop="2dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/coreFreqLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/core_freq"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-                <TextView
-                    android:id="@+id/armFreqLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/arm_freq"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    <TextView
+                        android:id="@+id/coreFreqText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/coreFreqLabel"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/coreFreqLabel"
+                        android:gravity="right"
+                        android:paddingLeft="8dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/armFreqText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/armFreqLabel"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/armFreqLabel"
-                    android:gravity="right"
-                    android:paddingLeft="8dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="2dp">
+                    <TextView
+                        android:id="@+id/coreVoltLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/core_volt"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-                <TextView
-                    android:id="@+id/coreFreqLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/core_freq"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    <TextView
+                        android:id="@+id/coreVoltText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/coreVoltLabel"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/coreVoltLabel"
+                        android:gravity="right"
+                        android:paddingLeft="8dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/coreFreqText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/coreFreqLabel"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/coreFreqLabel"
-                    android:gravity="right"
-                    android:paddingLeft="8dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/firmwareLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/firmware_version"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-                <TextView
-                    android:id="@+id/coreVoltLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/core_volt"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-                <TextView
-                    android:id="@+id/coreVoltText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/coreVoltLabel"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/coreVoltLabel"
-                    android:gravity="right"
-                    android:paddingLeft="8dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/firmwareLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/firmware_version"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-                <TextView
-                    android:id="@+id/firmwareText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/firmwareLabel"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/firmwareLabel"
-                    android:ellipsize="marquee"
-                    android:gravity="right"
-                    android:paddingLeft="8dp"
-                    android:singleLine="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-            </RelativeLayout>
-
+                    <TextView
+                        android:id="@+id/firmwareText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/firmwareLabel"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/firmwareLabel"
+                        android:ellipsize="marquee"
+                        android:gravity="right"
+                        android:paddingLeft="8dp"
+                        android:singleLine="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                </RelativeLayout>
+            </LinearLayout>
             <TextView
                 android:id="@+id/headerTextSystem"
                 android:layout_width="match_parent"

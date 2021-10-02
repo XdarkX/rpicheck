@@ -81,6 +81,7 @@ public class SSHQueryTask extends AsyncTask<String, Integer, QueryBean> {
         boolean hideRootProcesses = Boolean.parseBoolean(params[4]);
         final String privateKeyPath = params[5];
         final String privateKeyPass = params[6];
+        final boolean ignoreMissingVcgencmd = Boolean.parseBoolean(params[7]);
         QueryBean bean = new QueryBean();
         final long msStart = new Date().getTime();
         bean.setErrorMessages(new ArrayList<String>());
@@ -100,7 +101,10 @@ public class SSHQueryTask extends AsyncTask<String, Integer, QueryBean> {
                 queryService.connect(pass);
             }
             publishProgress(20);
-            final VcgencmdBean vcgencmdBean = queryService.queryVcgencmd();
+            VcgencmdBean vcgencmdBean = null;
+            if(!ignoreMissingVcgencmd) {
+               vcgencmdBean = queryService.queryVcgencmd();
+            }
             publishProgress(40);
             final Double loadAvg = queryService
                     .queryLoadAverage(this.loadAveragePeriod);

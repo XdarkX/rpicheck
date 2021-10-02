@@ -259,6 +259,10 @@
     <string name="pref_query_show_system_time_summaryOff">System time is hidden.</string>
     <string name="pref_query_show_system_time_summaryOn">System time is shown.</string>
     <string name="pref_query_show_system_time_title">Show system time</string>
+    <string name="pref_query_ignore_vcgencmd_summary">Check to ignore missing vcgencmd.</string>
+    <string name="pref_query_ignore_vcgencmd_summaryOff">Missing vcgencmd is not ignored.</string>
+    <string name="pref_query_ignore_vcgencmd_summaryOn">Missing vcgencmd is ignored.</string>
+    <string name="pref_query_ignore_vcgencmd_title">Ignore missing vcgencmd</string>
     <string name="systemtime">System time</string>
     <string name="total_swap">Swap memory</string>
 

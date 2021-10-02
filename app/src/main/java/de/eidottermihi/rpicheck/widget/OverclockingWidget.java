@@ -97,7 +97,8 @@ public class OverclockingWidget extends AppWidgetProvider {
                     LOGGER.debug("Starting async update task for Widget[ID={}]...", appWidgetId);
                     OverclockingWidgetView.startRefreshing(views, context, appWidgetId);
                     // query in AsyncTask
-                    new WidgetUpdateTask(context, views, showArm, showTemp, showMemory, showLoad, useFahrenheit, appWidgetId).execute(deviceBean);
+                    final boolean ignoreMissingVCGenCMD = sharedPreferences.getBoolean(SettingsActivity.KEY_PREF_QUERY_IGNORE_VCGENCMD, false);
+                    new WidgetUpdateTask(context, views, showArm, showTemp, showMemory, showLoad, useFahrenheit, appWidgetId, ignoreMissingVCGenCMD).execute(deviceBean);
                 } else {
                     LOGGER.debug("Skipping update - no WiFi connected.");
                 }
